@@ -1,0 +1,97 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url(resimler/arac.png) no-repeat center center fixed;
+    background-size: cover; /* Görüntünün ekranı tamamen kaplaması için */
+}
+
+
+.signup-form {
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+.signup-form h1 {
+    margin-top: 100px;
+    color: #fff;
+    font-size: 40px;
+}
+
+.signup-form label {
+    color: #fff; /* Labelların rengini beyaz olarak ayarladık */
+}
+
+.signup-form input {
+    display: block;
+    width: 100%;
+    padding: 0 16px;
+    height: 44px;
+    text-align: center;
+    box-sizing: border-box;
+    border: 2px solid rgba(255, 255, 255, 0.7); /* Border hatalıydı, düzeltildi */
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.signup-form input::placeholder {
+    color: #fff;
+}
+
+.txt {
+    margin: 20px 0;
+    border-radius: 6px;
+}
+
+.signup-btn {
+    margin-top: 60px;
+    margin-bottom: 20px;
+    background: #538fef;
+    color: #fff;
+    border-radius: 8px; /* Daha az köşe yuvarlama */
+    cursor: pointer;
+    transition: 0.9s;
+    display: block;
+    font-size: 18px; /* Buton metni boyutunu artırdık */
+    padding: 15px; /* Butonun içindeki boşlukları artırdık */
+    width: 100%; /* Butonu tam genişlikte yapmak için */
+}
+
+.signup-btn:hover {
+    transform: scale(0.96);
+    background: #fff;
+    color: #538fef;
+}
+
+
+.signup-btn:hover {
+    transform: scale(0.96);
+    background: #fff;
+    color: #538fef;
+}
+
+.signup-form a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 14px;
+    padding: 10px;
+    transition: 0.8s;
+    display: block;
+}
+.error-message {
+    color: #fff; /* Mesaj rengini beyaz yap */
+    background-color: #ff4d4d; /* Hata mesajı arka plan rengi */
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.signup-form a:hover {
+    color: yellow;
+    transform: scale(0.96);
+}

@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Harita</title>
+    <style>
+        #map {
+            height: 700px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        #controls {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .controls {
+            margin-right: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 300px;
+        }
+        #directionsPanel {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script src="{% static 'js/map.js' %}"></script>
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCU_ujDGkq_P6XVc9z7HSQODjXPTi6nc6s&libraries=places,geometry&callback=initMap">
+    </script>
+</head>
+<body>
+    <div id="controls">
+        <input id="searchBox1" class="controls" type="text" placeholder="Başlangıç Konumu">
+        <input id="searchBox2" class="controls" type="text" placeholder="Hedef Konumu">
+        <button id="routeButton">Rota Oluştur</button>
+        <button id="clearButton">Temizle</button>
+    </div>
+    <div id="legend" style="margin: 10px; padding: 10px; background-color: white;">
+        <p><img src="https://maps.google.com/mapfiles/ms/icons/green-dot.png"> Şarj İstasyonları</p>
+        <p><img src="https://maps.google.com/mapfiles/ms/icons/blue-dot.png"> Restoranlar</p>
+    </div>
+    <div id="map"></div>
+    <div id="directionsPanel">
+        <h4>Rota Bilgileri</h4>
+    </div>
+</body>
+</html>

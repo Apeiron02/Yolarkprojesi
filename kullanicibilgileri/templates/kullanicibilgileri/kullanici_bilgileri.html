@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Kullanıcı Bilgileri</title>
+    <style>
+        .route-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .route-info {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>Kullanıcı Bilgileri</h2>
+    <p>Kullanıcı Adı: {{ user.username }}</p>
+    <p>E-posta: {{ user.email }}</p>
+    <p>Kayıt Tarihi: {{ user.date_joined|date:"d/m/Y" }}</p>
+
+    <h3>Rota Geçmişi</h3>
+    {% if routes %}
+        {% for route in routes %}
+            <div class="route-card">
+                <p class="route-info"><strong>Tarih:</strong> {{ route.created_at|date:"d/m/Y H:i" }}</p>
+                <p class="route-info"><strong>Başlangıç:</strong> {{ route.start_address }}</p>
+                <p class="route-info"><strong>Varış:</strong> {{ route.end_address }}</p>
+                <p class="route-info"><strong>Mesafe:</strong> {{ route.total_distance|floatformat:1 }} km</p>
+                <p class="route-info"><strong>Süre:</strong> {{ route.total_duration|floatformat:0 }} dakika</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Henüz kaydedilmiş rota bulunmamaktadır.</p>
+    {% endif %}
+
+    <a href="{% url 'giris' %}">Çıkış Yap</a>
+</body>
+</html>

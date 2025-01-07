@@ -1,97 +1,65 @@
-body {
-    margin: 0;
-    padding: 0;
-    background: url(resimler/arac.png) no-repeat center center fixed;
-    background-size: cover; /* Görüntünün ekranı tamamen kaplaması için */
-}
-
+@import url('/static/css/common.css');
 
 .signup-form {
-    width: 300px;
-    padding: 20px;
+    width: 320px;
+    padding: 30px;
     text-align: center;
+    border-radius: 12px;
     position: absolute;
-    top: 30%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    overflow: hidden;
+    background-color: var(--panel-bg);
+    box-shadow: 0 0 20px rgba(0, 225, 255, 0.2);
 }
 
 .signup-form h1 {
-    margin-top: 100px;
-    color: #fff;
-    font-size: 40px;
-}
-
-.signup-form label {
-    color: #fff; /* Labelların rengini beyaz olarak ayarladık */
+    color: var(--primary-blue);
+    font-size: 32px;
+    margin-bottom: 30px;
 }
 
 .signup-form input {
-    display: block;
     width: 100%;
-    padding: 0 16px;
-    height: 44px;
-    text-align: center;
+    padding: 12px 16px;
+    margin: 10px 0;
+    border: 1px solid rgba(0, 225, 255, 0.2);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--light-text);
     box-sizing: border-box;
-    border: 2px solid rgba(255, 255, 255, 0.7); /* Border hatalıydı, düzeltildi */
-    background: rgba(255, 255, 255, 0.3);
 }
 
 .signup-form input::placeholder {
-    color: #fff;
+    color: rgba(255, 255, 255, 0.5);
 }
 
-.txt {
-    margin: 20px 0;
-    border-radius: 6px;
+.signup-form label {
+    display: block;
+    text-align: left;
+    color: var(--primary-blue);
+    margin-bottom: 5px;
 }
 
 .signup-btn {
-    margin-top: 60px;
-    margin-bottom: 20px;
-    background: #538fef;
-    color: #fff;
-    border-radius: 8px; /* Daha az köşe yuvarlama */
+    background: var(--gradient-primary);
+    color: var(--light-text);
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
     cursor: pointer;
-    transition: 0.9s;
-    display: block;
-    font-size: 18px; /* Buton metni boyutunu artırdık */
-    padding: 15px; /* Butonun içindeki boşlukları artırdık */
-    width: 100%; /* Butonu tam genişlikte yapmak için */
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 20px;
 }
 
 .signup-btn:hover {
-    transform: scale(0.96);
-    background: #fff;
-    color: #538fef;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 225, 255, 0.3);
 }
 
-
-.signup-btn:hover {
-    transform: scale(0.96);
-    background: #fff;
-    color: #538fef;
-}
-
-.signup-form a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 14px;
-    padding: 10px;
-    transition: 0.8s;
-    display: block;
-}
 .error-message {
-    color: #fff; /* Mesaj rengini beyaz yap */
-    background-color: #ff4d4d; /* Hata mesajı arka plan rengi */
-    padding: 8px;
-    border-radius: 4px;
-    text-align: center;
+    color: #ff4444;
     margin-top: 10px;
-}
-
-.signup-form a:hover {
-    color: yellow;
-    transform: scale(0.96);
+    font-size: 14px;
 }

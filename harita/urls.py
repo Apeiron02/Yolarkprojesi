@@ -8,4 +8,7 @@ urlpatterns = [
     path('get-nearby-charging-stations/', views.get_nearby_charging_stations, name='get_nearby_charging_stations'),
     path('get-restaurants/', views.get_restaurants, name='get_restaurants'),
     path('save-route-history/', views.save_route_history, name='save_route_history'),
+    path('get-user-car-info/', views.get_user_car_info, name='user_car_info'),
+    path('get-weather/', views.get_weather, name='get_weather'),
+    path('kullanici-bilgileri/', views.kullanici_bilgileri, name='kullanici_bilgileri'),
 ]

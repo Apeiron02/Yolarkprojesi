@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import ElectricCar, UserCarPreference
 
-# Register your models here.
+admin.site.register(ElectricCar)
+admin.site.register(UserCarPreference)

@@ -1,0 +1,89 @@
+/* Reset için temel ayarlar */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 70px; /* Navbar yüksekliği kadar padding */
+}
+
+.navbar {
+    background-color: rgba(26, 31, 37, 0.9);
+    padding: 15px 20px;
+    box-shadow: 0 0 20px rgba(0, 225, 255, 0.2);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999; /* En üstte görünmesi için yüksek z-index */
+    height: 70px;
+    width: 100%;
+}
+
+.nav-container {
+    max-width: 1800px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-brand {
+    color: #00e1ff;
+    font-size: 1.5em;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 10000; /* Navbar'ın üzerinde görünmesi için */
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    z-index: 10000; /* Navbar'ın üzerinde görünmesi için */
+}
+
+.nav-link {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    background: linear-gradient(45deg, #007bff, #00e1ff);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 225, 255, 0.3);
+}
+
+.nav-link.active {
+    background: linear-gradient(45deg, #007bff, #00e1ff);
+}
+
+/* Ana içerik için ayarlar */
+main, .content, #map-container, .map-content {
+    margin-top: 70px; /* Navbar yüksekliği kadar margin */
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+/* Harita container'ı için özel ayarlar */
+.map-container {
+    position: relative;
+    z-index: 1;
+    top: 70px; /* Navbar yüksekliği kadar offset */
+    width: 100%;
+    height: calc(100vh - 70px); /* Viewport yüksekliğinden navbar yüksekliğini çıkar */
+}
+
+/* Sayfanın geri kalanı için wrapper */
+.page-wrapper {
+    position: relative;
+    top: 70px;
+    width: 100%;
+    z-index: 1;
+}

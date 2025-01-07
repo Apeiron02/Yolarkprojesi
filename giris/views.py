@@ -15,7 +15,7 @@ def giris_view(request):
         if user is not None:
             # Kullanıcı doğrulandıysa oturum aç
             login(request, user)
-            return redirect('/anasayfa/')
+            return redirect('harita:harita_view')  # Harita sayfasına yönlendir
         else:
             messages.error(request, "Geçersiz kullanıcı adı veya şifre.")
 

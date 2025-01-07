@@ -1,0 +1,52 @@
+/* Base Styles */
+:root {
+    --primary-blue: #00e1ff;
+    --secondary-blue: #007bff;
+    --dark-bg: #1a1f25;
+    --light-text: #ffffff;
+    --panel-bg: rgba(26, 31, 37, 0.9);
+    --accent-color: #ff6b00;
+}
+
+/* Common Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(rgba(26, 31, 37, 0.9), rgba(26, 31, 37, 0.9)), 
+                url('../resimler/arac.png') no-repeat center center fixed;
+    background-size: cover;
+    color: var(--light-text);
+}
+
+/* Form Styles */
+.form-container {
+    width: 260px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: var(--panel-bg);
+}
+
+/* Button Styles */
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+    color: var(--light-text);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--primary-blue), var(--secondary-blue));
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 225, 255, 0.3);
+} 

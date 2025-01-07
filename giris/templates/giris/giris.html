@@ -3,9 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yol Arkadaşım - Giriş Yap</title>
-    {% load static %}  <!-- Statik dosyaları yüklemek için gerekli -->
-    <link rel="stylesheet" href="{% static 'giris/style.css' %}">  <!-- Doğru yolu kullanın -->
+    <title>Yol Arkadaşım</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'giris/style.css' %}">
+    
     <!--
     alt shift f kodları düzenlemek için
     ctrl alt aşağı ok tuşu imleci arttırma
@@ -15,25 +16,22 @@
 <body>
     <div class="signup-form">
         <h1>Giriş Yap</h1>
-
-        <!-- İlk form: Giriş Yap -->
         <form method="post" action="{% url 'giris' %}">
             {% csrf_token %}
-            <label for="username">Kullanıcı Adı:</label>
+            <label for="username">Kullanıcı Adı</label>
             <input type="text" id="username" name="username" placeholder="İsminiz" required class="txt">
-            <br>
-            <label for="password">Şifre:</label>
+            
+            <label for="password">Şifre</label>
             <input type="password" id="password" name="password" placeholder="Şifre" required class="txt">
-            <br>
-            <button type="submit" name="giris" class="signup-btn">Giriş Yap</button>
+            
+            <input type="submit" value="Giriş Yap" class="signup-btn">
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="error-message">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
         </form>
-
-        <!-- Mesajların görüntüleneceği alan -->
-        {% if messages %}
-            {% for message in messages %}
-                <p class="error-message">{{ message }}</p> <!-- Burada sınıf ekledik -->
-            {% endfor %}
-        {% endif %}
     </div>
 </body>
 </html>

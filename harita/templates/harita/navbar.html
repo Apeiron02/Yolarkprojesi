@@ -1,0 +1,13 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/navbar.css' %}">
+
+<nav class="navbar">
+    <div class="nav-container">
+        <a href="{% url 'hakkimizda:hakkimizda' %}" class="nav-brand">Yol Arkadaşım</a>
+        <div class="nav-links">
+            <a href="{% url 'harita:harita_view' %}" class="nav-link {% if request.resolver_match.app_name == 'harita' %}active{% endif %}">Harita</a>
+            <a href="{% url 'kullanicibilgileri:kullanici_bilgileri' %}" class="nav-link {% if request.resolver_match.app_name == 'kullanicibilgileri' %}active{% endif %}">Kullanıcı Bilgileri</a>
+            <a href="{% url 'hakkimizda:hakkimizda' %}" class="nav-link {% if request.resolver_match.app_name == 'hakkimizda' %}active{% endif %}">Hakkımızda</a>
+        </div>
+    </div>
+</nav> 

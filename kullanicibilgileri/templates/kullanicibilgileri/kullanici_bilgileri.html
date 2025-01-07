@@ -1,41 +1,91 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <title>Kullanıcı Bilgileri</title>
-    <style>
-        .route-card {
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-        }
-        .route-info {
-            margin: 5px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/kullanici_bilgileri.css' %}">
+    <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
 </head>
 <body>
-    <h2>Kullanıcı Bilgileri</h2>
-    <p>Kullanıcı Adı: {{ user.username }}</p>
-    <p>E-posta: {{ user.email }}</p>
-    <p>Kayıt Tarihi: {{ user.date_joined|date:"d/m/Y" }}</p>
+    {% include 'kullanicibilgileri/navbar.html' %}
+    <div class="container">
+        <div class="user-section">
+            <div class="profile-panel">
+                <h2>Kullanıcı Bilgileri</h2>
+                <div class="user-info">
+                    <div class="info-item">
+                        <span class="label">Kullanıcı Adı:</span>
+                        <span class="value">{{ user.username }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">E-posta:</span>
+                        <span class="value">{{ user.email }}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Kayıt Tarihi:</span>
+                        <span class="value">{{ user.date_joined|date:"d/m/Y" }}</span>
+                    </div>
+                </div>
 
-    <h3>Rota Geçmişi</h3>
-    {% if routes %}
-        {% for route in routes %}
-            <div class="route-card">
-                <p class="route-info"><strong>Tarih:</strong> {{ route.created_at|date:"d/m/Y H:i" }}</p>
-                <p class="route-info"><strong>Başlangıç:</strong> {{ route.start_address }}</p>
-                <p class="route-info"><strong>Varış:</strong> {{ route.end_address }}</p>
-                <p class="route-info"><strong>Mesafe:</strong> {{ route.total_distance|floatformat:1 }} km</p>
-                <p class="route-info"><strong>Süre:</strong> {{ route.total_duration|floatformat:0 }} dakika</p>
+                <div class="car-selection">
+                    <h3>Elektrikli Araç Seçimi</h3>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <select name="selected_car" onchange="this.form.submit()">
+                            <option value="">Araç Seçiniz</option>
+                            {% for car in electric_cars %}
+                                <option value="{{ car.id }}" {% if user_car_preference.selected_car.id == car.id %}selected{% endif %}>
+                                    {{ car.car_name }} (Menzil: {{ car.average_range }} km)
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </form>
+
+                    {% if user_car_preference %}
+                    <div class="selected-car-info">
+                        <p><span class="label">Seçili Araç:</span> {{ user_car_preference.selected_car.car_name }}</p>
+                        <p><span class="label">Ortalama Menzil:</span> {{ user_car_preference.selected_car.average_range }} km</p>
+                    </div>
+                    {% endif %}
+                </div>
+                
+                <a href="{% url 'giris' %}" class="logout-btn">Çıkış Yap</a>
             </div>
-        {% endfor %}
-    {% else %}
-        <p>Henüz kaydedilmiş rota bulunmamaktadır.</p>
-    {% endif %}
+        </div>
 
-    <a href="{% url 'giris' %}">Çıkış Yap</a>
+        <div class="routes-section">
+            <div class="routes-panel">
+                <h3>Rota Geçmişi</h3>
+                <div class="routes-container">
+                    {% if routes %}
+                        {% for route in routes %}
+                            <div class="route-card">
+                                <div class="route-header">
+                                    <span class="route-date">{{ route.created_at|date:"d/m/Y H:i" }}</span>
+                                </div>
+                                <div class="route-details">
+                                    <p><span class="label">Başlangıç:</span> {{ route.start_address }}</p>
+                                    <p><span class="label">Varış:</span> {{ route.end_address }}</p>
+                                    <div class="route-stats">
+                                        <span class="stat">
+                                            <i class="fas fa-road"></i>
+                                            {{ route.total_distance|floatformat:1 }} km
+                                        </span>
+                                        <span class="stat">
+                                            <i class="fas fa-clock"></i>
+                                            {{ route.total_duration|floatformat:0 }} dk
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="no-routes">Henüz kaydedilmiş rota bulunmamaktadır.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

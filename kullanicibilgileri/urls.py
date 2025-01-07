@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import kullanici_bilgileri
+from . import views
+
+app_name = 'kullanicibilgileri'  # Namespace tanımı
 
 urlpatterns = [
-    path('', kullanici_bilgileri, name='kullanici_bilgileri'),
+    path('', views.kullanici_bilgileri, name='kullanici_bilgileri'),
 ]

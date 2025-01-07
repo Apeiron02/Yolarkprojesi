@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 from pathlib import Path
 import psycopg2
+from decouple import config
 
 
 
@@ -25,14 +26,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-w#yg-975#@-vh7yzf+gdxnfy-d1io4s6q!i_-hs@+)k(q1a*x='
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = []
 
-GOOGLE_PLACES_API_KEY = 'AIzaSyCU_ujDGkq_P6XVc9z7HSQODjXPTi6nc6s'
+
+OPENWEATHER_API_KEY = config('OPENWEATHER_API_KEY')  # Sizin API anahtarınız 
+
+GOOGLE_PLACES_API_KEY = config('GOOGLE_PLACES_API_KEY')
 # Application definition
 
 INSTALLED_APPS = [
@@ -90,11 +94,11 @@ WSGI_APPLICATION = 'yolarkadasim.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'website',
-        'USER': 'yusuf',
-        'PASSWORD': 'yusuf123',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
+        'HOST': config('DATABASE_HOST'),
+        'PORT': config('DATABASE_PORT'),
     }
 }
 
@@ -144,6 +148,6 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_BROKER_URL = config('CELERY_BROKER_URL')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'

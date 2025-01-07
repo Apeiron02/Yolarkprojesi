@@ -1,77 +1,98 @@
-body{
-    margin: 0;
-    padding: 0;
-    background: url(resimler/arac.png) no-repeat center center fixed;
-    background-size: cover;
+@import url('/static/css/common.css');
 
-
-
-
-}
-.signup-form{
-    width: 300px;
-    padding: 20px;
+.signup-form {
+    width: 320px;
+    padding: 30px;
     text-align: center;
-
-
+    border-radius: 12px;
     position: absolute;
-    top: 30%;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
-    overflow: hidden;
-
-
+    transform: translate(-50%, -50%);
+    background-color: var(--panel-bg);
+    box-shadow: 0 0 20px rgba(0, 225, 255, 0.2);
 }
-.signup-form h1{
-    margin-top: 100px;
-    color: #fff;
-    font-size: 40px;
+
+.signup-form h1 {
+    color: var(--primary-blue);
+    font-size: 32px;
+    margin-bottom: 30px;
 }
-.signup-form input{
-    display: block;
+
+.signup-form input {
     width: 100%;
-    padding: 0 16px;
-    height: 44px;
-    text-align: center;
-    box-sizing: border-box;
-    border: 2px  rgba(255, 255, 255, 0.7);
-    background: rgba(255, 255, 255, 0.3);
-
-
-
-}
-.signup-form input::placeholder{
-    color: #fff;
-}
-.txt{
-    margin: 20px 0;
+    padding: 12px 16px;
+    margin: 10px 0;
+    border: 1px solid rgba(0, 225, 255, 0.2);
     border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--light-text);
+    box-sizing: border-box;
 }
-.signup-btn{
-    margin-top: 60px;
-    margin-bottom: 20px;
-    background: #538fef;
-    color: #fff;
-    border-radius: 44px;
-    cursor: pointer;
-    transition: 0.9s;
-    display: block;
-}
-.signup-btn:hover{
-    transform: scale(0.96);
-    background: #fff;
-    color: #538fef;
-}
-.signup-form a{
-    text-decoration: none;
-    color: #fff;
-    font-size: 14px;
-    padding: 10px;
-    transition: 0.8s;
-    display: block;
 
+.signup-form input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
 }
-.signup-form a:hover{
-    color: yellow;
-    transform: scale(0.96);
+
+.txt {
+    margin: 10px 0;
+}
+
+.signup-btn {
+    background: var(--gradient-primary);
+    color: var(--light-text);
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.signup-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 225, 255, 0.3);
+}
+
+.signup-form a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 15px;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.signup-form a:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* Hata mesajları için stil */
+.signup-form ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.signup-form ul li {
+    color: #ff4444;
+    font-size: 14px;
+    margin: 5px 0;
+    text-align: left;
+}
+
+/* Form grupları için stil */
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    color: var(--primary-blue);
+    margin-bottom: 5px;
+    font-size: 14px;
 }

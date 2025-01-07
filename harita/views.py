@@ -7,7 +7,13 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
+from kullanicibilgileri.models import UserCarPreference
+from django.contrib.auth.decorators import login_required
+from .services import RouteService
+from .strategies import CarRouteStrategy, ElectricCarRouteStrategy
+from .repositories import RouteRepository
 
+route_service = RouteService()
 
 def harita_view(request):
     context = {
@@ -26,7 +32,7 @@ def get_nearby_charging_stations(request):
         }, status=400)
 
     # Şarj istasyonları için Places API sorgusu
-    url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lng}&radius=5000&keyword=charging_station&type=establishment&key={settings.GOOGLE_PLACES_API_KEY}"
+    url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lng}&radius=50000&keyword=charging_station&type=establishment&key={settings.GOOGLE_PLACES_API_KEY}"
     
     try:
         response = requests.get(url)
@@ -49,7 +55,7 @@ def get_nearby_charging_stations(request):
 
         if not nearby_stations:
             # Eğer şarj istasyonu bulunamazsa daha geniş bir arama yap
-            url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lng}&radius=10000&keyword=charging_station&type=establishment&key={settings.GOOGLE_PLACES_API_KEY}"
+            url = f"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lng}&radius=100000&keyword=charging_station&type=establishment&key={settings.GOOGLE_PLACES_API_KEY}"
             response = requests.get(url)
             response.raise_for_status()
             data = response.json()
@@ -133,19 +139,16 @@ def save_route_history(request):
     if request.method == 'POST' and request.user.is_authenticated:
         try:
             data = json.loads(request.body)
-            print("Gelen veri:", data)  # Hata ayıklama için
-
-            route_history = RouteHistory(
-                user=request.user,
-                start_address=data.get('start_address', ''),
-                end_address=data.get('end_address', ''),
-                start_latitude=float(data['start_lat']),
-                start_longitude=float(data['start_lng']),
-                end_latitude=float(data['end_lat']),
-                end_longitude=float(data['end_lng']),
-                total_distance=float(data['distance']),
-                total_duration=float(data['duration'])
-            )
+            route_history = route_service.create_route(request.user, {
+                'start_address': data.get('start_address', ''),
+                'end_address': data.get('end_address', ''),
+                'start_latitude': float(data['start_lat']),
+                'start_longitude': float(data['start_lng']),
+                'end_latitude': float(data['end_lat']),
+                'end_longitude': float(data['end_lng']),
+                'total_distance': float(data['distance']),
+                'total_duration': float(data['duration'])
+            })
             
             try:
                 route_history.full_clean()
@@ -164,3 +167,128 @@ def save_route_history(request):
             return JsonResponse({'error': str(e)}, status=500)
     
     return JsonResponse({'error': 'Geçersiz istek veya kullanıcı girişi yapılmamış'}, status=405)
+
+
+def get_user_car_info(request):
+    if not request.user.is_authenticated:
+        return JsonResponse({'error': 'Kullanıcı girişi yapılmamış'}, status=401)
+    
+    try:
+        user_car = UserCarPreference.objects.get(user=request.user)
+        car_info = {
+            'car_name': user_car.selected_car.car_name,
+            'average_range': user_car.selected_car.average_range
+        }
+        return JsonResponse(car_info)
+    except UserCarPreference.DoesNotExist:
+        return JsonResponse({'error': 'Araç seçimi yapılmamış'}, status=404)
+
+
+def get_weather(request):
+    try:
+        lat = request.GET.get('lat')
+        lng = request.GET.get('lng')
+        
+        if not lat or not lng:
+            return JsonResponse({'error': 'Koordinatlar gerekli'}, status=400)
+            
+        weather_api_key = getattr(settings, 'OPENWEATHER_API_KEY', None)
+        if not weather_api_key:
+            # API anahtarı yoksa varsayılan hava durumu verisi döndür
+            return JsonResponse({
+                'weather': [{'main': 'Clear', 'description': 'clear sky'}],
+                'main': {'temp': 293.15}  # 20°C
+            })
+            
+        url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lng}&appid={weather_api_key}"
+        
+        response = requests.get(url, timeout=5)  # 5 saniyelik timeout ekle
+        response.raise_for_status()
+        
+        weather_data = response.json()
+        return JsonResponse(weather_data)
+        
+    except requests.RequestException as e:
+        # API hatası durumunda varsayılan veri döndür
+        return JsonResponse({
+            'weather': [{'main': 'Clear', 'description': 'clear sky'}],
+            'main': {'temp': 293.15}  # 20°C
+        })
+    except Exception as e:
+        print(f"Hava durumu hatası: {str(e)}")  # Hata ayıklama için
+        return JsonResponse({'error': str(e)}, status=500)
+
+
+@login_required
+def calculate_route(request):
+    if request.method == 'POST':
+        try:
+            # POST verilerini al
+            start_lat = float(request.POST.get('start_lat'))
+            start_lng = float(request.POST.get('start_lng'))
+            end_lat = float(request.POST.get('end_lat'))
+            end_lng = float(request.POST.get('end_lng'))
+            start_address = request.POST.get('start_address', '')
+            end_address = request.POST.get('end_address', '')
+            
+            # Araç tipine göre strateji seç
+            strategy = ElectricCarRouteStrategy() if request.user.usercarpreference.car_type == 'electric' else CarRouteStrategy()
+            
+            # Rotayı hesapla
+            route_details = strategy.calculate_route(start_lat, start_lng, end_lat, end_lng)
+            
+            # Elektrikli araç için şarj istasyonu kontrolü
+            if (request.user.usercarpreference.car_type == 'electric' and 
+                route_details.get('distance', 0) > 300 and 
+                'charging_station' not in route_details):
+                return JsonResponse({
+                    'status': 'error',
+                    'message': 'Uygun şarj istasyonu bulunamadı. Lütfen farklı bir rota deneyin.'
+                }, status=400)
+            
+            # Rotayı kaydet
+            route_data = {
+                'start_latitude': start_lat,
+                'start_longitude': start_lng,
+                'end_latitude': end_lat,
+                'end_longitude': end_lng,
+                'start_address': start_address,
+                'end_address': end_address,
+                'total_distance': route_details['distance'],
+                'total_duration': route_details['duration']
+            }
+            
+            route = route_service.create_route(request.user, route_data)
+            
+            response_data = {
+                'status': 'success',
+                'route': {
+                    'distance': route.total_distance,
+                    'duration': route.total_duration
+                }
+            }
+            
+            # Şarj istasyonu bilgisini ekle
+            if 'charging_station' in route_details:
+                response_data['route']['charging_station'] = route_details['charging_station']
+            
+            return JsonResponse(response_data)
+            
+        except Exception as e:
+            return JsonResponse({
+                'status': 'error',
+                'message': str(e)
+            }, status=500)
+        
+    return render(request, 'harita/calculate_route.html')
+
+
+@login_required
+def route_history(request):
+    routes = route_service.get_user_route_history(request.user, limit=10)
+    return render(request, 'harita/route_history.html', {'routes': routes})
+
+
+def kullanici_bilgileri(request):
+    # Kullanıcı bilgilerini işleyen kod
+    return render(request, 'kullanici_bilgileri.html')  # Örnek bir şablon

@@ -18,7 +18,7 @@
             </ul>
         {% endif %}
 
-        <form action="{% url 'register' %}" method="post">
+        <form action="{% url 'kayitol' %}" method="post">
             {% csrf_token %}
             <h1>Kayıt Ol</h1>
             <input type="text" name="username" placeholder="Kullanıcı Adı" class="txt" required>

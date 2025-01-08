@@ -34,18 +34,18 @@ Uygulama, kullanıcıların seyahatlerini optimize etmelerine ve yol üzerindeki
 1. Repoyu klonlayın: git clone https://github.com/Apeiron02/Yolarkprojesi.git
 2. Gerekli Python paketlerini yükleyin: pip install -r requirements.txt
 3. Ortam değişkenlerini ayarlayın:
-4. SECRET_KEY='YOUR_DJANGO_KEY'
-5. DEBUG=True
-6.  OPENWEATHER_API_KEY='YOUR_WEATHER_API_KEY'
-7.  GOOGLE_PLACES_API_KEY='YOUR_GOOGLE_API_KEY'
-8.  DATABASE_NAME='YOUR_DATABASE_NAME'
-9.  DATABASE_USER='YOUR_DATABASE_USERNAME'
-10. DATABASE_PASSWORD='YOUR_DATABESE_PASSWORD'
-11. DATABASE_HOST='YOUR_DATABASE_HOST'
-12. DATABASE_PORT='YOUR_DATABASE_PORT_NUMBER'
-13. CELERY_BROKER_URL='YOUR_CELERY_BROKER_URL'
-14. Django migrations'ları çalıştırın: python manage.py migrate
-15. Sunucuyu başlatın: python manage.py runserver
+- SECRET_KEY='YOUR_DJANGO_KEY'
+- DEBUG=True
+- OPENWEATHER_API_KEY='YOUR_WEATHER_API_KEY'
+- GOOGLE_PLACES_API_KEY='YOUR_GOOGLE_API_KEY'
+- DATABASE_NAME='YOUR_DATABASE_NAME'
+- DATABASE_USER='YOUR_DATABASE_USERNAME'
+- DATABASE_PASSWORD='YOUR_DATABESE_PASSWORD'
+- DATABASE_HOST='YOUR_DATABASE_HOST'
+- DATABASE_PORT='YOUR_DATABASE_PORT_NUMBER'
+- CELERY_BROKER_URL='YOUR_CELERY_BROKER_URL'
+4. Django migrations'ları çalıştırın: python manage.py migrate
+5. Sunucuyu başlatın: python manage.py runserver
 
 
 ## 💡 Kullanım
@@ -65,42 +65,42 @@ Uygulama, kullanıcıların seyahatlerini optimize etmelerine ve yol üzerindeki
 
 ### Harita İşlemleri
 javascript:static/js/map.js
-startLine: 17
-endLine: 121
-Bu bölüm, harita başlatma ve temel harita işlemlerini içerir.
+- startLine: 17
+- endLine: 121
+- Bu bölüm, harita başlatma ve temel harita işlemlerini içerir.
 
 ### Şarj İstasyonu İşlemleri
 javascript:static/js/map.js
-startLine: 124
-endLine: 214
-Şarj istasyonlarının aranması ve görüntülenmesi işlemleri.
+- startLine: 124
+- endLine: 214
+- Şarj istasyonlarının aranması ve görüntülenmesi işlemleri.
 
 ### Rota Hesaplama
 javascript:static/js/map.js
-startLine: 418
-endLine: 481
-Bu bölüm, kullanıcıların başlangıç ve varış noktalarını belirleyerek rota hesaplamasına olanak tanır.
+- startLine: 418
+- endLine: 481
+- Bu bölüm, kullanıcıların başlangıç ve varış noktalarını belirleyerek rota hesaplamasına olanak tanır.
 
 ### Rota Geçerliliği Kontrolü
 javascript:static/js/map.js
-startLine: 484
-endLine: 532
-Bu bölüm, checkRouteViability fonksiyonu ile kullanıcıların belirlediği rotanın geçerliliğini kontrol eder. 
+- startLine: 484
+- endLine: 532
+- Bu bölüm, checkRouteViability fonksiyonu ile kullanıcıların belirlediği rotanın geçerliliğini kontrol eder. 
 Kullanıcının araç bilgilerini ve mevcut pil seviyesini alarak, toplam mesafeyi ve menzil etkilerini hesaplar. 
 Trafik ve hava durumu etkilerini göz önünde bulundurarak, rotanın geçerli olup olmadığını belirler. 
 Eğer rota geçerli değilse, gerekli şarj duraklarının sayısını hesaplar.
 
 ### Trafik Etkisi Hesaplama
 javascript:static/js/map.js
-startLine: 534
-endLine: 558
-Bu bölüm, calculateTrafficImpact fonksiyonu ile bir rota bacağının trafik durumunu değerlendirir. 
+- startLine: 534
+- endLine: 558
+- Bu bölüm, calculateTrafficImpact fonksiyonu ile bir rota bacağının trafik durumunu değerlendirir. 
 
 ### Hava Durumu Etkisi Hesaplama
 javascript:static/js/map.js
-startLine: 560
-endLine: 598
-Bu bölüm, calculateWeatherImpact fonksiyonu ile bir rota bacağının hava durumu koşullarını değerlendirir.
+- startLine: 560
+- endLine: 598
+- Bu bölüm, calculateWeatherImpact fonksiyonu ile bir rota bacağının hava durumu koşullarını değerlendirir.
 
 ## 👥 Katkıda Bulunma
 1. Bu repoyu fork edin

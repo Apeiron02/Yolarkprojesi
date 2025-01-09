@@ -20,6 +20,69 @@ Uygulama, kullanıcıların seyahatlerini optimize etmelerine ve yol üzerindeki
 - Menzil Hesaplama: Araç şarj durumuna göre menzil hesaplama ve uyarı sistemi
 - Yakındaki Mekanlar: Şarj istasyonları çevresindeki restoran ve dinlenme noktalarını listeleme
 
+------------------------------------------------------
+
+### Giriş Sayfası
+
+![ Alt text](Documents/ScreenShots/Giris_Sayfası.jpg)  [](Documents/ScreenShots/Giris_Sayfası.jpg)
+
+-----------------------------------------------------
+
+### Harita Sayfası
+
+![ Alt text](Documents/ScreenShots/Harita_Sayfası.jpg)  [](Documents/ScreenShots/Harita_Sayfası.jpg)
+
+-----------------------------------------------------
+
+### Şarj İstasyonu Gösterimi
+
+![ Alt text](Documents/ScreenShots/Sarj_Istasyon_Gosterim.jpg)  [](Documents/ScreenShots/Sarj_Istasyon_Gosterim.jpg)
+
+-----------------------------------------------------
+
+### Rota Üzerinde Şarj İstasyonu Gösterimi
+
+![ Alt text](Documents/ScreenShots/Rota_İstasyon_Gosterim.jpg)  [](Documents/ScreenShots/Rota_İstasyon_Gosterim.jpg)
+
+-----------------------------------------------------
+
+### İstasyon Çevresi Restoran Gösterimi
+
+![ Alt text](Documents/ScreenShots/Restoranlar_Gosterim.jpg)  [](Documents/ScreenShots/Restoranlar_Gosterim.jpg)
+
+-----------------------------------------------------
+
+
+### Trafik Durumu Gösterimi
+
+![ Alt text](Documents/ScreenShots/Trafik_Gosterim.jpg)  [](Documents/ScreenShots/Trafik_Gosterim.jpg)
+
+-----------------------------------------------------
+
+### Hava Durumu Gösterimi
+
+![ Alt text](Documents/ScreenShots/Hava_Durumu_Gosterim.jpg)  [](Documents/ScreenShots/Hava_Durumu_Gosterim.jpg)
+
+-----------------------------------------------------
+
+### Şarj İstasyonu Önerisi
+
+![ Alt text](Documents/ScreenShots/Istasyon_Onerisi.jpg)  [](Documents/ScreenShots/Istasyon_Onerisi.jpg)
+
+-----------------------------------------------------
+
+### Uzun Rotada Şarj İstasyonu Önerisi
+
+![ Alt text](Documents/ScreenShots/Istasyon_Onerisi_2.jpg)  [](Documents/ScreenShots/Istasyon_Onerisi_2.jpg)
+
+-----------------------------------------------------
+
+### Kullanıcı Bilgileri Sayfası
+
+![ Alt text](Documents/ScreenShots/Kullanici_Bilgileri.jpg)  [](Documents/ScreenShots/Kullanici_Bilgileri.jpg)
+
+-----------------------------------------------------
+
 ### 🛠 Kullanılan Teknolojiler
 - Frontend: HTML, CSS, JavaScript
 - Backend: Django (Python)
